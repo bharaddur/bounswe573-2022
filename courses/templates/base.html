@@ -3,12 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{% block title %}Educa{% endblock %}</title>
+    <title>{% block title %}Academix{% endblock %}</title>
     <link href="{% static "css/base.css" %}" rel="stylesheet">
 </head>
 <body>
     <div id="header">
-        <a href="/" class="logo">Educa</a>
+        <a href="/" class="logo">Academix</a>
         <ul class="menu">
             {% if request.user.is_authenticated %}
                 <li><a href="{% url "logout" %}">Sign out</a></li>
@@ -29,5 +29,7 @@
             {% endblock %}
         });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </body>
 </html>
