@@ -184,3 +184,19 @@ class CourseDetailView(DetailView):
         context['enroll_form'] = CourseEnrollForm(initial={'course':self.object})
         
         return context
+
+## Search Function
+
+
+    
+def search_courses(request):
+
+    if request.method == "POST":
+        searched = request.POST['searched']
+        courses = Course.objects.filter(title__contains = searched)
+        return render(request, 
+        'courses/search_courses.html', 
+        {'searched' : searched, 'courses': courses})
+    
+    else:
+        return render(request, 'courses/search_courses.html', {})
