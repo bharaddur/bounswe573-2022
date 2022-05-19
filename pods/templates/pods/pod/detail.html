@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {{ object.title }}
+    </h1>
+    <div class="module">
+        <h2>Overview</h2>
+        <p>
+                
+            {{ object.modules.count }} modules.
+            Creator: {{ object.owner.get_full_name }}
+        </p>
+        {{ object.overview|linebreaks }}
+        {% if request.user.is_authenticated %}
+            <form action="{% url "suser_enroll_pod" %}" method="post">
+                {{ enroll_form }}
+                {% csrf_token %}
+                <input type="submit" value="Enroll now">
+            </form>
+        {% else %}
+            <a href="{% url "suser_registration" %}" class="button">
+                Register to enroll
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

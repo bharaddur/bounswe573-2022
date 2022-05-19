@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'courses.apps.CoursesConfig',
+    'pods.apps.PodsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,7 +137,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy('suser_course_list')
+LOGIN_REDIRECT_URL = reverse_lazy('suser_pod_list')
 
 MEDIA_URL = '/media/'
 

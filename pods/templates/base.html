@@ -18,7 +18,7 @@
         </ul>
         <ul>
             <li>
-                <a href="{% url 'manage_course_list' %}">
+                <a href="{% url 'manage_pod_list' %}">
                     
                     Create Learning Pod
                 </a>
@@ -26,16 +26,16 @@
         </ul>
         <ul>
             <li>
-                <form class="d-flex" method = POST action = "{% url 'search_courses' %}" >
+                <form class="d-flex" method = POST action = "{% url 'search_pods' %}" >
                     {% csrf_token %}
-                    <input class="form-control me-2" type="search" placeholder="Search Courses" aria-label="Search" name="searched">
+                    <input class="form-control me-2" type="search" placeholder="Search Pods" aria-label="Search" name="searched">
                     <button class="btn-outline-secondary" type="submit">Search</button>
                 </form>
             </li>
         </ul>
         <ul>
             <li>
-                <a href="{% url 'suser_course_list' %}">
+                <a href="{% url 'suser_pod_list' %}">
                     
                     My Learning Pods
                 </a>

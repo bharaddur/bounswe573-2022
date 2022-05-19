@@ -1,5 +1,5 @@
 from django import forms
-from courses.models import Course
+from pods.models import Pod
 
-class CourseEnrollForm(forms.Form):
-    course = forms.ModelChoiceField(queryset=Course.objects.all(),widget=forms.HiddenInput)
+class PodEnrollForm(forms.Form):
+    pod = forms.ModelChoiceField(queryset=Pod.objects.all(),widget=forms.HiddenInput)

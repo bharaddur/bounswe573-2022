@@ -5,19 +5,19 @@
         {% if searched %} 
             <h1>You Searched For {{ searched }} </h1>
             <br/>
-            {% for course in courses %}
+            {% for pod in pods %}
                 <h3>
-                    <a href="{% url "course_detail" course.slug %}">
-                        {{ course.title }}
+                    <a href="{% url "pod_detail" pod.slug %}">
+                        {{ pod.title }}
                     </a>
                 </h3>
                 <p>
-                        {{ course.total_modules }} modules.
-                        Instructor: {{ course.owner.get_full_name }}
+                        {{ pod.total_modules }} modules.
+                        Instructor: {{ pod.owner.get_full_name }}
                 </p>
             {% endfor %}
         {% else %}
-            <h1>You forgot to write any course name... :(</h1>
+            <h1>You forgot to write any pod name... :(</h1>
         
         {% endif %}
         

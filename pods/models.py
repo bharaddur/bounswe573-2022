@@ -16,19 +16,19 @@ from taggit.managers import TaggableManager
 #    def __str__(self):
 #        return self.title
 
-class Course(models.Model):
+class Pod(models.Model):
     owner = models.ForeignKey(User,
-                                related_name='courses_created',
+                                related_name='pods_created',
                                 on_delete=models.CASCADE)
 #    subject = models.ForeignKey(Subject,
-#                                related_name='courses',
+#                                related_name='pods',
 #                                on_delete=models.CASCADE)
     tags = TaggableManager()
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    susers = models.ManyToManyField(User,related_name='courses_joined',blank=True)
+    susers = models.ManyToManyField(User,related_name='pods_joined',blank=True)
     file = models.FileField(null=True, blank= True, upload_to='images')
 
 class Meta:
@@ -38,13 +38,13 @@ def __str__(self):
     return self.title
 
 class Module(models.Model):
-    course = models.ForeignKey(Course,
+    pod = models.ForeignKey(Pod,
                                 related_name='modules',
                                 on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
 
-    order = OrderField(blank=True, for_fields=['course'])
+    order = OrderField(blank=True, for_fields=['pod'])
 
     class Meta:
         ordering = ['order']
@@ -87,7 +87,7 @@ class ItemBase(models.Model):
         return self.title
 
     def render(self):
-        return render_to_string(f'courses/content/{self._meta.model_name}.html',{'item': self})
+        return render_to_string(f'pods/content/{self._meta.model_name}.html',{'item': self})
 
 class Text(ItemBase):
     content = models.TextField()

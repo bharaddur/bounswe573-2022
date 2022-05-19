@@ -16,9 +16,9 @@ class OrderField(models.PositiveIntegerField):
                 if self.for_fields:
                     # get objects that has the same fields(with same vlaues) in for_fields 
                     #it's like so 
-                    #for_fields = 'course, module, title'
+                    #for_fields = 'pod, module, title'
                     # the query will be the value of these fields on the instance which we work on now(and have this field(orderfield ) and will be saved)
-                    # course = 1 we assume it's one in this instanse 
+                    # pod = 1 we assume it's one in this instanse 
                     # module = 3 and so on for the title
                     query = {field: getattr(model_instance, field) for field in self.for_fields}                                                                          
                     qs = qs.filter(**query)                                

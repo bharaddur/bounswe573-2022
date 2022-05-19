@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% load course %}
+{% load pod %}
 
 {% block title %}
     Module {{ module.order|add:1 }}: {{ module.title }}
 {% endblock %}
 
 {% block content %}
-{% with course=module.course %}
-    <h1>Course "{{ course.title }}"</h1>
+{% with pod=module.pod %}
+    <h1>Pod "{{ pod.title }}"</h1>
     <div class="contents">
         <h3>Modules</h3>
         <ul id="modules">
-            {% for m in course.modules.all %}
+            {% for m in pod.modules.all %}
                 <li data-id="{{ m.id }}" {% if m == module %}
                     class="selected"{% endif %}>
                         <a href="{% url "module_content_list" m.id %}">
@@ -26,7 +26,7 @@
                     <li>No modules yet.</li>
                 {% endfor %}
             </ul>
-            <p><a href="{% url "course_module_update" course.id %}">
+            <p><a href="{% url "pod_module_update" pod.id %}">
             Edit modules</a></p>
         </div>
         <div class="module">
