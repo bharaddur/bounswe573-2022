@@ -3,12 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{% block title %}Academix{% endblock %}</title>
+    <title>{% block title %}CollaPod{% endblock %}</title>
     <link href="{% static "css/base.css" %}" rel="stylesheet">
 </head>
 <body>
     <div id="header">
-        <a href="/" class="logo">Academix</a>
+        <a href="/" class="logo">CollaPod</a>
         <ul class="menu">
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Sign out</a></li>
@@ -20,7 +20,7 @@
             <li>
                 <a href="{% url 'manage_course_list' %}">
                     
-                    Instructor
+                    Create Learning Pod
                 </a>
             </li>
         </ul>
@@ -31,6 +31,14 @@
                     <input class="form-control me-2" type="search" placeholder="Search Courses" aria-label="Search" name="searched">
                     <button class="btn-outline-secondary" type="submit">Search</button>
                 </form>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a href="{% url 'suser_course_list' %}">
+                    
+                    My Learning Pods
+                </a>
             </li>
         </ul>
     </div>

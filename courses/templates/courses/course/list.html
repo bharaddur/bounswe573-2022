@@ -1,22 +1,22 @@
 {% extends "base.html" %}
-
+<!--
 {% block title %}
     {% if subject %}
         {{ subject.title }} courses
     {% else %}
         All courses
     {% endif %}
-{% endblock %}
+{% endblock %} -->
 
 {% block content %}
-    <h1>
+<!--   <h1>
         {% if subject %}
-            {{ subject.title }} courses
+            {{ subject.title }} Learning Pods
         {% else %}
-            All courses
+            All Learning Pods
         {% endif %}
-    </h1>
-    <div class="contents">
+    </h1> --> 
+<!--   <div class="contents">
         <h3>Subjects</h3>
         <ul id="modules">
             <li {% if not subject %}class="selected"{% endif %}>
@@ -32,6 +32,7 @@
             {% endfor %}
         </ul>
     </div>
+   
     <div class="module">
         {% for course in courses %}
             {% with subject=course.subject %}
@@ -47,5 +48,5 @@
                 </p>
             {% endwith %}
         {% endfor %}
-    </div>
+    </div>--> 
 {% endblock %}

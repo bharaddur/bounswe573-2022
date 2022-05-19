@@ -30,6 +30,8 @@ class SuserRegistrationView(CreateView):
         # bunu kullan
         permission = Permission.objects.filter(content_type__app_label='courses',content_type__model='module')
         user.user_permissions.add(permission[1])
+        user.user_permissions.add(permission[2])
+        user.user_permissions.add(permission[3])
         #
         return result
 
