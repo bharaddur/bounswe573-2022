@@ -9,23 +9,32 @@
 </head>
 
 {% block content %}
-    <center>
-       <div class = "container">
-           <h1>The pods are:</h1>
-           {% for tag in tags %}
-                <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
-           {% endfor %}
-           {% for pod in pods %}
-            <div class="col-md-8 mt-4 mb-4" style = "background-color: #6d6e70;"></div>
-                <h3>{{pod.title}}</h3>
-                <p>{{pod.created}}</p>
-                <p>{{pod.overview}}</p>
-                {% for tag in pod.tags.all %}
-                    <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+
+    <h1>Learning Pods</h1>
+    <div class="contents" style="background: rgb(255, 255, 255)" style = "border: #000">
+        <ul id="modules">
+            
+                <h2 style="color: #000">Search by Tags</h2>
+                {% for tag in tags %}
+                    <button class="taggit"><a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a></button>
                 {% endfor %}
+            
+    </ul>
+</div>
+
+    <div class="module">          
+        {% for pod in pods %}
+        <div class="pod-info">
+            <h3><a class= "taggit" href="{% url 'suser_pod_detail' pod.id %}">{{pod.title}}</a></h3>
+            <p>{{pod.created}}</p>
+            <p>{{pod.overview}}</p>
+            {% for tag in pod.tags.all %}
+                <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
             {% endfor %}
-       </div> 
-    </center>
+        </div>
+        {% endfor %}
+    </div>
+
 
 
 {% endblock %}

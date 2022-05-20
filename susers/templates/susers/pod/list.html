@@ -4,18 +4,17 @@
 
 {% block content %}
     <h1>My Learning Pods</h1>
-
     <div class="module">
         {% for pod in object_list %}
             <div class="pod-info">
                 <h3>{{ pod.title }}</h3>
-                <p><a href="{% url "suser_pod_detail" pod.id %}">
+                <p><a href="{% url 'suser_pod_detail' pod.id %}">
                 Access contents</a></p>
             </div>
         {% empty %}
             <p>
                 You are not joined to any Learning Pod yet.
-                <a href="{% url "pod_list" %}">Browse Learning Pods</a>
+                <a href="{% url 'pod_list' %}">Browse Learning Pods</a>
                 to join a Learning Pod.
             </p>
         {% endfor %}

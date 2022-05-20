@@ -376,3 +376,35 @@ ul#pod-modules li:hover {
     padding-right:0;
 }
 
+
+button.taggit{
+    background-color: #a7afd4; /* Green */
+    border-radius:15px;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-decoration-color:#aaa;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+box {
+    background:#efefef;
+    width:100%;
+    overflow:auto;
+    padding:20px 0 20px 40px;
+    margin:0;
+}
+
+.div1 {
+    width: 300px;
+    height: 100px;
+    border: 1px solid blue;
+  }
+
+
+  
