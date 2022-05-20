@@ -11,7 +11,8 @@ from pods.models import Pod
 from django.views.generic.detail import DetailView
 ##
 from django.contrib.auth.models import Permission, User
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib import messages
 
 
 

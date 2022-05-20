@@ -7,4 +7,5 @@ urlpatterns = [
     path('Pods/', views.SuserPodListView.as_view(), name='suser_pod_list'),
     path('Pod/<pk>/', views.SuserPodDetailView.as_view(), name='suser_pod_detail'),
     path('Pod/<pk>/<module_id>/', views.SuserPodDetailView.as_view(),name='suser_pod_detail_module'),
+
 ]
