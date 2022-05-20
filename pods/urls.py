@@ -14,7 +14,7 @@ urlpatterns = [
     path('module/<int:module_id>', views.ModuleContentListView.as_view(), name='module_content_list'),
     path('module/order/', views.ModuleOrderView.as_view(), name='module_order'),
     path('content/order/',views.ContentOrderView.as_view(),name='content_order'),
-    path('subject/<slug:subject>/', views.PodListView.as_view(), name='pod_list_subject'),
+    path('tags/<slug:tag_slug>/', views.TagListView.as_view(), name='pods_by_tag'),
     path('<slug:slug>/', views.PodDetailView.as_view(), name='pod_detail'),
     ##
     path('search_pods', views.search_pods , name='search_pods'),

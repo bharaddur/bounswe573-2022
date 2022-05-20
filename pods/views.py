@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render
 from .models import Pod
 from django.urls import reverse_lazy
@@ -12,7 +13,8 @@ from django.apps import apps
 from .models import Module, Content
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-#from .models import Subject
+from taggit.managers import TaggableManager
+from taggit.models import Tag
 from django.views.generic.detail import DetailView
 from susers.forms import PodEnrollForm
 
@@ -162,20 +164,28 @@ class ContentOrderView(CsrfExemptMixin,
             Content.objects.filter(id=id, module__pod__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
 #for viewing pods
 
-class PodListView(TemplateResponseMixin, View):
+class PodListView(TagMixin, ListView):
     model = Pod
     template_name = 'pods/pod/list.html'
-    
- #   def get(self, request, subject=None):
- #       subjects = Subject.objects.annotate(total_pods=Count('pods'))
- #       pods = pod.objects.annotate(total_modules=Count('modules'))
+    queryset= Pod.objects.all()
+    context_object_name = 'pods'
 
-  #      if subject:
-   #         subject = get_object_or_404(Subject, slug=subject)
-    #        pods = pods.filter(subject=subject)
-     #   return self.render_to_response({'subjects': subjects,'subject': subject,'pods': pods})
+class TagListView(TagMixin, ListView):
+    model = Pod
+    template_name = 'pods/pod/list.html'
+    context_object_name = 'pods'
+
+    def get_queryset(self):
+        return Pod.objects.filter(tags__slug=self.kwargs.get('tag_slug'))
+    
 
 class PodDetailView(DetailView):
     model = Pod

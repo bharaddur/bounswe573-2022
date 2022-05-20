@@ -28,6 +28,7 @@ urlpatterns = [
     path('pod/', include('pods.urls')),
     path('', PodListView.as_view(), name='pod_list'),
     path('susers/', include('susers.urls')),
+    path('susers/', include('django.contrib.auth.urls'))
     ##
     
 

@@ -1,4 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Roboto:500,300,400);
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 
 body {
     margin:0;
@@ -55,6 +56,7 @@ h1 {
 }
 
 #header .logo {
+    margin-top: 5px;
     text-decoration:none;
     font-family:'Roboto', sans-serif;
     font-weight:300;
@@ -69,11 +71,77 @@ h1 {
 }
 
 #header .menu {
+    
     list-style:none;
     float:right;
-    margin:0;
+    margin:10px;
     padding:0;
 }
+
+#header .items {
+    list-style:none;
+    float:left;
+    margin:10px;
+    padding:0px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#header .search {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 40px;
+    width: 300px;
+    display: flex;
+    background: #4337ad;
+}
+#header .search input{
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    border-radius: 5px 0 0 5px;
+  }
+
+#header .search .icon{
+    height: 100%;
+    width: 60px;
+    margin-left: 0px;
+    margin-right: 10px;
+    line-height: 4px;
+    text-align: center;
+    border: 0px solid #332020;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+
+#header .search .icon:hover{
+    background: #335bb6;
+  }
+
+#header .search .icon span{
+    color: #222222;
+    font-size: 18px;
+  }
+
+#header li.btn span{
+    height: 42px;
+    width: 42px;
+    text-align: center;
+    line-height: 42px;
+    border: 1px solid #151515;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+#header li.btn span.show:before{
+    content: '\f00d';
+  }
+
+
 
 .contents {
     width:20%;
@@ -190,27 +258,27 @@ input[type=submit]:hover, a.button:hover {
     background:#362c8b;
 }
 
-ul#course-modules {
+ul#pod-modules {
     list-style:none;
     overflow:auto;
 }
 
-ul#course-modules textarea {
+ul#pod-modules textarea {
     width:600px;
     height:120px;
 }
 
-ul#course-modules li {
+ul#pod-modules li {
     padding:20px;
     overflow:auto;
     cursor:move;
 }
 
-ul#course-modules li:nth-child(even) {
+ul#pod-modules li:nth-child(even) {
     background:#efefef;
 }
 
-ul#course-modules li:hover {
+ul#pod-modules li:hover {
     background:#ccc;
 }
 
@@ -238,7 +306,7 @@ ul#course-modules li:hover {
     cursor:move;
 }
 
-.course-info {
+.pod-info {
     border:1px solid #ccc;
     padding:0 20px;
     margin-bottom:10px;
@@ -246,7 +314,7 @@ ul#course-modules li:hover {
     overflow:auto;
 }
 
-.course-info a {
+.pod-info a {
     margin-right:10px;
 }
 
@@ -307,3 +375,4 @@ ul#course-modules li:hover {
     padding-left:0;
     padding-right:0;
 }
+

@@ -11,10 +11,12 @@ class ModuleInline(admin.StackedInline):
 
 @admin.register(Pod)
 class PodAdmin(admin.ModelAdmin):
-#    list_display = ['title', 'subject', 'created']
-    list_display = ['title', 'created']
-#
-#    list_filter = ['created', 'subject']
+
+    list_display = ['title', 'created', 'get_tags']
+
+    def get_tags(self, obj):
+        return ", ".join(o for o in obj.tags.names())
+
     list_filter = ['created']
     
     search_fields = ['title', 'overview']

@@ -1,52 +1,31 @@
 {% extends "base.html" %}
-<!--
-{% block title %}
-    {% if subject %}
-        {{ subject.title }} pods
-    {% else %}
-        All pods
-    {% endif %}
-{% endblock %} -->
+<html lang= en>
+
+<head>
+    <title> Home </title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
 {% block content %}
-<!--   <h1>
-        {% if subject %}
-            {{ subject.title }} Learning Pods
-        {% else %}
-            All Learning Pods
-        {% endif %}
-    </h1> --> 
-<!--   <div class="contents">
-        <h3>Subjects</h3>
-        <ul id="modules">
-            <li {% if not subject %}class="selected"{% endif %}>
-                <a href="{% url "pod_list" %}">All</a>
-            </li>
-            {% for s in subjects %}
-                <li {% if subject == s %}class="selected"{% endif %}>
-                    <a href="{% url "pod_list_subject" s.slug %}">
-                        {{ s.title }}
-                        <br><span>{{ s.total_pods }} pods</span>
-                    </a>
-                </li>
+    <center>
+       <div class = "container">
+           <h1>The pods are:</h1>
+           {% for tag in tags %}
+                <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+           {% endfor %}
+           {% for pod in pods %}
+            <div class="col-md-8 mt-4 mb-4" style = "background-color: #6d6e70;"></div>
+                <h3>{{pod.title}}</h3>
+                <p>{{pod.created}}</p>
+                <p>{{pod.overview}}</p>
+                {% for tag in pod.tags.all %}
+                    <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+                {% endfor %}
             {% endfor %}
-        </ul>
-    </div>
-   
-    <div class="module">
-        {% for pod in pods %}
-            {% with subject=pod.subject %}
-                <h3>
-                    <a href="{% url "pod_detail" pod.slug %}">
-                        {{ pod.title }}
-                    </a>
-                </h3>
-                <p>
-                    <a href="{% url "pod_list_subject" subject.slug %}">{{subject }}</a>.
-                        {{ pod.total_modules }} modules.
-                        Instructor: {{ pod.owner.get_full_name }}
-                </p>
-            {% endwith %}
-        {% endfor %}
-    </div>--> 
+       </div> 
+    </center>
+
+
 {% endblock %}

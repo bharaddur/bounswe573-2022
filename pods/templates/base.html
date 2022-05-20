@@ -9,14 +9,14 @@
 <body>
     <div id="header">
         <a href="/" class="logo">CollaPod</a>
-        <ul class="menu">
+        <ul class="menu ">
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Sign out</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Sign in</a></li>
             {% endif %}
         </ul>
-        <ul>
+        <ul class="items">
             <li>
                 <a href="{% url 'manage_pod_list' %}">
                     
@@ -24,16 +24,14 @@
                 </a>
             </li>
         </ul>
-        <ul>
-            <li>
-                <form class="d-flex" method = POST action = "{% url 'search_pods' %}" >
-                    {% csrf_token %}
-                    <input class="form-control me-2" type="search" placeholder="Search Pods" aria-label="Search" name="searched">
-                    <button class="btn-outline-secondary" type="submit">Search</button>
-                </form>
-            </li>
+        <ul class="search">          
+            <form class="search" method = POST action = "{% url 'search_pods' %}" >
+                {% csrf_token %}
+                <input type="search" placeholder="Search Pods" aria-label="Search" name="searched">          
+                <button class="icon" type="submit">Search</button>
+            </form>          
         </ul>
-        <ul>
+        <ul class="items" >
             <li>
                 <a href="{% url 'suser_pod_list' %}">
                     
