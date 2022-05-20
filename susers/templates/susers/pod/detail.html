@@ -28,10 +28,17 @@
     </div>
     <div class="module">
         {% for content in module.contents.all %}
-            {% with item=content.item %}
-                <h2>{{ item.title }}</h2>
+            {% if content.content_type_id == 6 %}
+                {% with item=content.item %}
+                    {{ item.render }}
+                    <p><i>{{ item.title }}</i></p>
+                {% endwith %}
+            {% else %}
+                {% with item=content.item %}
+                    <h3><b>{{ item.title }}</b></h3>
                 {{ item.render }}
-            {% endwith %}
+                {% endwith %}           
+            {% endif %}    
         {% endfor %}
     </div>
 {% endblock %}

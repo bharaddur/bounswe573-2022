@@ -26,10 +26,10 @@
         {% for pod in pods %}
         <div class="pod-info">
             <h3><a class= "taggit" href="{% url 'suser_pod_detail' pod.id %}">{{pod.title}}</a></h3>
-            <p>{{pod.created}}</p>
-            <p>{{pod.overview}}</p>
+                <p><img src="{{ pod.file.url }}" alt="Lights" style="max-width:150px;max-height:100px;margin-bottom:0;"></p>
+            <p style="font-size:12px;" >{{pod.overview}}</p>
             {% for tag in pod.tags.all %}
-                <a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+                <button class="taggit" style = "font-size: 10px;padding: 8px 15px;"><a href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a></button>
             {% endfor %}
         </div>
         {% endfor %}
