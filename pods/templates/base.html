@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>{% block title %}CollaPod{% endblock %}</title>
-    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
     <div id="header">
@@ -16,13 +16,21 @@
                 <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
         </ul>
+        <ul class="menu ">
+            {% if user.is_authenticated %}
+            {% else %}
+                <li><a href="{% url 'suser_registration' %}">Register</a></li>
+            {% endif %}
+        </ul>
         <ul class="items">
+            {% if user.is_authenticated %}    
             <li>
                 <a href="{% url 'manage_pod_list' %}">
                     
                     Create Learning Pod
                 </a>
             </li>
+            {% endif %}          
         </ul>
         <ul class="search">          
             <form class="search" method = POST action = "{% url 'search_pods' %}" >
@@ -32,12 +40,14 @@
             </form>          
         </ul>
         <ul class="items" >
+            {% if user.is_authenticated %} 
             <li>
                 <a href="{% url 'suser_pod_list' %}">
                     
                     My Learning Pods
                 </a>
             </li>
+            {% endif %} 
         </ul>
     </div>
 
