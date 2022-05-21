@@ -43,7 +43,7 @@
     <br/>
     <form action="{% url 'like_pod' pod.pk %}" method = "POST">
         {% csrf_token %}
-        <button type="submit", name="pod_id", value="{{ pod.id }}", class="btn btn-primary btn-sm">Like</button>
+        <button type="submit", name="pod_id", value="{{ pod.id }}", class="taggit" style="background-color: rgb(82, 156, 3)">Like</button> - {{ pod.total_likes }} Likes
     </form>
 
 {% endblock %}

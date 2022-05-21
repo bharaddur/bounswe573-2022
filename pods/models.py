@@ -20,11 +20,14 @@ class Pod(models.Model):
     file = models.FileField(null=True, blank= True, upload_to='images')
     likes = models.ManyToManyField(User, related_name='pods_liked')
 
-class Meta:
-    ordering = ['-created']
+    def total_likes(self):
+        return self.likes.count()
 
-def __str__(self):
-    return self.title
+    class Meta:
+        ordering = ['-created']
+
+    def __str__(self):
+        return self.title
 
 class Module(models.Model):
     pod = models.ForeignKey(Pod,

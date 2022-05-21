@@ -195,8 +195,13 @@ class PodDetailView(DetailView):
     template_name = 'pods/pod/detail.html'
     
     def get_context_data(self, **kwargs):
+        
         context = super().get_context_data(**kwargs)
+
+        stuff = get_object_or_404(Pod, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
         context['enroll_form'] = PodEnrollForm(initial={'pod':self.object})
+        context["total_likes"] = total_likes
         
         return context
 
