@@ -102,5 +102,6 @@ class AddDiscussionView(CreateView):
         form.instance.author_id = self.request.user.id
         return super().form_valid(form)
 
-    success_url: reverse_lazy('home')
+    def get_success_url(self):
+        return reverse_lazy('suser_pod_detail',args=[self.kwargs['pk']])
 
