@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
@@ -9,10 +9,12 @@ from .forms import PodEnrollForm
 from django.views.generic.list import ListView
 from pods.models import Pod
 from django.views.generic.detail import DetailView
-##
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse 
 
 
 
@@ -35,6 +37,7 @@ class SuserRegistrationView(CreateView):
         user.user_permissions.add(permission[3])
         #
         return result
+
 
 
         
@@ -79,3 +82,9 @@ class SuserPodDetailView(DetailView):
             # get first module
             context['module'] = pod.modules.all()[0]
         return context
+
+def LikeView(request, pk):
+    pod = get_object_or_404(Pod, id=request.POST.get('pod_id'))
+    pod.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('suser_pod_detail', args=[str(pk)]))

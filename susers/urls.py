@@ -1,5 +1,6 @@
 from django.urls import path
-from . import views
+from . import views 
+from . views import LikeView
 
 urlpatterns = [
     path('register/',views.SuserRegistrationView.as_view(),name='suser_registration'),
@@ -7,5 +8,5 @@ urlpatterns = [
     path('Pods/', views.SuserPodListView.as_view(), name='suser_pod_list'),
     path('Pod/<pk>/', views.SuserPodDetailView.as_view(), name='suser_pod_detail'),
     path('Pod/<pk>/<module_id>/', views.SuserPodDetailView.as_view(),name='suser_pod_detail_module'),
-
+    path('like/<int:pk>', LikeView, name= 'like_pod'),
 ]

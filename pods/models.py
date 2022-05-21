@@ -6,23 +6,11 @@ from .fields import OrderField
 from django.template.loader import render_to_string
 from taggit.managers import TaggableManager
 
-#class Subject(models.Model):
-#    title = models.CharField(max_length=200)
-#    slug = models.SlugField(max_length=200, unique=True)
-    
-#    class Meta:
-#        ordering = ['title']
-#    
-#    def __str__(self):
-#        return self.title
 
 class Pod(models.Model):
     owner = models.ForeignKey(User,
                                 related_name='pods_created',
                                 on_delete=models.CASCADE)
-#    subject = models.ForeignKey(Subject,
-#                                related_name='pods',
-#                                on_delete=models.CASCADE)
     tags = TaggableManager()
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -30,6 +18,7 @@ class Pod(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     susers = models.ManyToManyField(User,related_name='pods_joined',blank=True)
     file = models.FileField(null=True, blank= True, upload_to='images')
+    likes = models.ManyToManyField(User, related_name='pods_liked')
 
 class Meta:
     ordering = ['-created']

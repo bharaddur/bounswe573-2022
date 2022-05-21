@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render
 from .models import Pod
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse 
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -17,6 +17,9 @@ from taggit.managers import TaggableManager
 from taggit.models import Tag
 from django.views.generic.detail import DetailView
 from susers.forms import PodEnrollForm
+from django.http import HttpResponseRedirect
+
+
 
 
 class OwnerMixin(object):
@@ -212,3 +215,4 @@ def search_pods(request):
     
     else:
         return render(request, 'pods/search_pods.html', {})
+

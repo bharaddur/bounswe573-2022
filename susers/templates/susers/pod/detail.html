@@ -41,4 +41,13 @@
             {% endif %}    
         {% endfor %}
     </div>
+
+    <br/><br/>
+    <hr>
+    <br/>
+    <form action="{% url 'like_pod' pod.pk %}" method = "POST">
+        {% csrf_token %}
+        <button type="submit", name="pod_id", value="{{ pod.id }}", class="btn btn-primary btn-sm">Like</button>
+    </form>
+
 {% endblock %}
