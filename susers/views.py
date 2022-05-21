@@ -1,3 +1,4 @@
+from tkinter.ttk import Widget
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
@@ -5,9 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PodEnrollForm
+from .forms import PodEnrollForm, DiscussionForm
 from django.views.generic.list import ListView
-from pods.models import Pod
+from pods.models import Pod, Discussion
 from django.views.generic.detail import DetailView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Permission, User
@@ -89,4 +90,17 @@ class SuserPodDetailView(DetailView):
             # get first module
             context['module'] = pod.modules.all()[0]
         return context
+
+
+class AddDiscussionView(CreateView):
+    model = Discussion
+    form_class = DiscussionForm
+    template_name: str = "susers/pod/add_discussion.html"
+    #fields = '__all__'
+    def form_valid(self, form):
+        form.instance.pod_id = self.kwargs['pk']
+        form.instance.author_id = self.request.user.id
+        return super().form_valid(form)
+
+    success_url: reverse_lazy('home')
 

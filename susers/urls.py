@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views 
+from . import views
 
 
 urlpatterns = [
@@ -8,5 +8,6 @@ urlpatterns = [
     path('Pods/', views.SuserPodListView.as_view(), name='suser_pod_list'),
     path('Pod/<pk>/', views.SuserPodDetailView.as_view(), name='suser_pod_detail'),
     path('Pod/<pk>/<module_id>/', views.SuserPodDetailView.as_view(),name='suser_pod_detail_module'),
+    path('Pod/<pk>/discussion', views.AddDiscussionView.as_view(), name='add_discussion'),
     
 ]

@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render
-from .models import Pod
+from .models import Pod, Discussion, Module, Content
 from django.urls import reverse_lazy, reverse 
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -10,7 +10,6 @@ from django.views.generic.base import TemplateResponseMixin, View
 from .forms import ModuleFormSet
 from django.forms.models import modelform_factory
 from django.apps import apps
-from .models import Module, Content
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
 from taggit.managers import TaggableManager
@@ -31,6 +30,7 @@ def LikeView(request, pk):
         liked= True
 
     return HttpResponseRedirect(reverse('suser_pod_detail', args=[str(pk)]))
+
 
 class OwnerMixin(object):
     def get_queryset(self):

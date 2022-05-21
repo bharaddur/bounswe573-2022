@@ -38,8 +38,7 @@
             {% endif %}    
         {% endfor %}
     </div>
-
-    <br/><br/>
+  
     <br/>
     <form action="{% url 'like_pod' pod.pk %}" method = "POST">
         {% csrf_token %}
@@ -50,6 +49,19 @@
         {% endif %}
 
             - {{ pod.total_likes }} Likes
-    </form>
+    </form> 
+    <br/>
+    <h2>Discussion</h2>
+    <br/>
+    <a href="{% url 'add_discussion' pod.pk %}">Ask a question</a>
+    {% if not object.discussions.all %}
+        No Discussion Yet...<a href="#">Add one</a>
+    {% else %}
+        {% for discussion in object.discussions.all %}
+            <h5><a href="#">{{ discussion.title }}</a> -{{ discussion.author}}</h5>
+        {% endfor %}   
+    {% endif %}
+
+
 
 {% endblock %}

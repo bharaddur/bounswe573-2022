@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+    {% if discussion %}
+        Edit  "{{ discussion.title }}"
+    {% else %}
+        Start a Discussion
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if object %}
+            Edit discussion attributes "{{ discussion.title }}"
+        {% else %}
+            Create a Discussion
+        {% endif %}
+    </h1>
+    <div class="module">
+        <h2>Pod info</h2>
+        <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Save"></p>
+        </form>
+    </div>
+{% endblock %}
