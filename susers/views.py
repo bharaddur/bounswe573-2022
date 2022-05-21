@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse 
+from pods.views import PodDetailView
 
 
 
@@ -72,7 +73,13 @@ class SuserPodDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        stuff = get_object_or_404(Pod, id=self.kwargs['pk'])
 
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id):
+            liked = True
+
+        context['liked'] = liked
         # get pod object
         pod = self.get_object()
         if 'module_id' in self.kwargs:
@@ -83,8 +90,3 @@ class SuserPodDetailView(DetailView):
             context['module'] = pod.modules.all()[0]
         return context
 
-def LikeView(request, pk):
-    pod = get_object_or_404(Pod, id=request.POST.get('pod_id'))
-    pod.likes.add(request.user)
-
-    return HttpResponseRedirect(reverse('suser_pod_detail', args=[str(pk)]))

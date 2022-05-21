@@ -20,7 +20,17 @@ from susers.forms import PodEnrollForm
 from django.http import HttpResponseRedirect
 
 
+def LikeView(request, pk):
+    pod = get_object_or_404(Pod, id=request.POST.get('pod_id'))
+    liked= False
+    if pod.likes.filter(id=request.user.id).exists():
+        pod.likes.remove(request.user)
+        liked= False
+    else:    
+        pod.likes.add(request.user)
+        liked= True
 
+    return HttpResponseRedirect(reverse('suser_pod_detail', args=[str(pk)]))
 
 class OwnerMixin(object):
     def get_queryset(self):
@@ -34,9 +44,7 @@ class OwnerEditMixin(object):
 
 class OwnerPodMixin(OwnerMixin, LoginRequiredMixin, PermissionRequiredMixin):
     model = Pod
-    fields = ['tags',
-#            'subject', 
-            'title', 'file', 'slug', 'overview', ]
+    fields = ['tags','title', 'file', 'slug', 'overview', ]
     success_url = reverse_lazy('manage_pod_list')
 
 class OwnerPodEditMixin(OwnerPodMixin, OwnerEditMixin):
@@ -200,8 +208,9 @@ class PodDetailView(DetailView):
 
         stuff = get_object_or_404(Pod, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
+
         context['enroll_form'] = PodEnrollForm(initial={'pod':self.object})
-        context["total_likes"] = total_likes
+        context['total_likes'] = total_likes
         
         return context
 

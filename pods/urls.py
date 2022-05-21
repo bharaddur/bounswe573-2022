@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . views import LikeView
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('<slug:slug>/', views.PodDetailView.as_view(), name='pod_detail'),
     ##
     path('search_pods', views.search_pods , name='search_pods'),
+    path('like/<int:pk>', LikeView, name= 'like_pod'),
     
 
     
