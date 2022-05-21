@@ -44,6 +44,25 @@ class Module(models.Model):
     def __str__(self):
         return f'{self.order}. {self.title}'
         
+## discussion model
+class Discussion(models.Model):
+    pod = models.ForeignKey(Pod,
+                                related_name='discussions',
+                                on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete= models.CASCADE, related_name= "pod_discussion")
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        ordering = ['updated']
+    
+    def __str__(self):
+        return self.title
+
+
 
 class Content(models.Model):
     module = models.ForeignKey(Module,

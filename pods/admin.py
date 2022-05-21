@@ -1,6 +1,6 @@
 from django.contrib import admin
 #from .models import Subject, Pod, Module
-from .models import Pod, Module
+from .models import Pod, Module, Discussion
 
 #@admin.register(Subject)
 #class SubjectAdmin(admin.ModelAdmin):
@@ -8,6 +8,10 @@ from .models import Pod, Module
 #    prepopulated_fields = {'slug': ('title',)}
 class ModuleInline(admin.StackedInline):
     model = Module
+
+class DiscussionInline(admin.TabularInline):
+    model = Discussion
+
 
 @admin.register(Pod)
 class PodAdmin(admin.ModelAdmin):
@@ -21,4 +25,4 @@ class PodAdmin(admin.ModelAdmin):
     
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
-    inlines = [ModuleInline]
+    inlines = [ModuleInline, DiscussionInline]
