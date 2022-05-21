@@ -9,14 +9,11 @@
         {{ module.title }}
     </h1>
     <div class="contents">
-        <h3>Modules</h3>
+        <h3>Pod Modules</h3>
         <ul id="modules">
             {% for m in object.modules.all %}
                 <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
-                    <a href="{% url "suser_pod_detail_module" object.id m.id %}">
-                        <span>
-                            Module <span class="order">{{ m.order|add:1 }}</span>
-                        </span>
+                    <a href="{% url 'suser_pod_detail_module' object.id m.id %}">                   
                         <br>
                         {{ m.title }}
                     </a>
@@ -43,7 +40,6 @@
     </div>
 
     <br/><br/>
-    <hr>
     <br/>
     <form action="{% url 'like_pod' pod.pk %}" method = "POST">
         {% csrf_token %}

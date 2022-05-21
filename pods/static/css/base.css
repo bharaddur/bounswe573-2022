@@ -119,7 +119,7 @@ h1 {
   }
 
 #header .search .icon:hover{
-    background: #335bb6;
+    background: #ad8837;
   }
 
 #header .search .icon span{
@@ -187,7 +187,7 @@ h1 {
 }
 
 .contents ul a:hover {
-    color:#4337ad;
+    color:#ad8837;
     cursor:move;
 }
 
@@ -255,7 +255,7 @@ a.secondary-button {
 }
 
 input[type=submit]:hover, a.button:hover {
-    background:#362c8b;
+    background:#ad8837;
 }
 
 ul#pod-modules {
