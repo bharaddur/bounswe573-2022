@@ -6,9 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PodEnrollForm, DiscussionForm
+from .forms import PodEnrollForm, DiscussionForm, CommentForm
 from django.views.generic.list import ListView
-from pods.models import Pod, Discussion
+from pods.models import Pod, Discussion, Comment
 from django.views.generic.detail import DetailView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Permission, User
@@ -75,12 +75,14 @@ class SuserPodDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stuff = get_object_or_404(Pod, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
 
         liked = False
         if stuff.likes.filter(id=self.request.user.id):
             liked = True
 
         context['liked'] = liked
+        context['total_likes'] = total_likes
         # get pod object
         pod = self.get_object()
         if 'module_id' in self.kwargs:
@@ -104,4 +106,39 @@ class AddDiscussionView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('suser_pod_detail',args=[self.kwargs['pk']])
+
+class DiscussionDetailView(DetailView):
+    model = Discussion
+    template_name = 'susers/pod/detail_discussion.html'
+##comment
+    form = CommentForm
+
+    def post(self, request,pk, *args, **kwargs):
+        
+        form = CommentForm(request.POST)
+        
+        if form.is_valid():
+            discussion = self.get_object()
+            form.instance.author_id = self.request.user.id
+            form.instance.discussion_id = self.kwargs['pk']
+            form.save()
+            
+            return HttpResponseRedirect(reverse("discussion_detail", args=[str(pk)]))
+
+    def get_context_data(self, **kwargs):
+
+        discussion_comments_count = Comment.objects.all().filter(discussion=self.object.id).count
+        discussion_comments = Comment.objects.all().filter(discussion=self.object.id)
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form': self.form,
+            'discussion_comments': discussion_comments,
+            'discussion_comments_count': discussion_comments_count,
+        })
+       
+        return context
+
+
+    
+
 

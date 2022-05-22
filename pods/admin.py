@@ -1,6 +1,6 @@
 from django.contrib import admin
 #from .models import Subject, Pod, Module
-from .models import Pod, Module, Discussion
+from .models import Pod, Module, Discussion, Comment
 
 #@admin.register(Subject)
 #class SubjectAdmin(admin.ModelAdmin):
@@ -12,6 +12,10 @@ class ModuleInline(admin.StackedInline):
 class DiscussionInline(admin.TabularInline):
     model = Discussion
 
+class CommentInline(admin.TabularInline):
+    model = Discussion
+
+admin.site.register(Comment)
 
 @admin.register(Pod)
 class PodAdmin(admin.ModelAdmin):

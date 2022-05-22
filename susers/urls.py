@@ -10,4 +10,8 @@ urlpatterns = [
     path('Pod/<pk>/<module_id>/', views.SuserPodDetailView.as_view(),name='suser_pod_detail_module'),
     path('Pod/<pk>/discussion', views.AddDiscussionView.as_view(), name='add_discussion'),
     
+    
+    path('discussion/<int:pk>', views.DiscussionDetailView.as_view(), name='discussion_detail'),
+
+    
 ]

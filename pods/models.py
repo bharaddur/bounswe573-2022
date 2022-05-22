@@ -61,9 +61,25 @@ class Discussion(models.Model):
     
     def __str__(self):
         return self.title
+####comment
+
+class Comment(models.Model):
+    discussion = models.ForeignKey(Pod,
+                                related_name='comments',
+                                on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete= models.CASCADE, related_name= "discussion_comment")
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
 
+    class Meta:
+        ordering = ['created']
+    
+    def __str__(self):
+        return self.author.username
 
+
+###
 class Content(models.Model):
     module = models.ForeignKey(Module,
                                 related_name='contents',

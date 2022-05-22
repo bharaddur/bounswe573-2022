@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ discussion.title }}{% endblock %}
+{% block content %}
+
+</br>
+
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <!-- Banner -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ discussion.title }}</h2>
+                    <p class="date" style="font-size: 12px;">published {{ discussion.created }} by <b>{{ discussion.author }}</b></p>
+                    {{ discussion.body|linebreaks }}
+            </div>
+        </div>
+
+<!--comments-->
+
+        <div class="card mb-4" style="padding: 10px">
+            <div class="container">
+                <h3>Comments ({{discussion_comments_count}}) </h3>
+                    <div class="row">
+                        <!--display content-->
+                        <div class="media-list">
+                            {% for comment in discussion_comments %}
+                                <div class="media-body">
+                                <b>{{ comment.author }}</b>
+                                <p class="date" style="font-size: 12px;">{{ comment.created }}</p>
+                                <p>{{ comment.body }}</p>
+                                </div>
+                    
+                                
+
+                            {% endfor %}
+                    <form method="POST" action="{% url 'discussion_detail' discussion.pk %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form }}
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit" >Comment</button>
+                </form>
+
+                </div>
+
+
+                <!--display form-->
+                
+
+            
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

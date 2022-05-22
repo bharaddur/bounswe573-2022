@@ -1,26 +1,51 @@
 {% extends "base.html" %}
-{% block title %}My pods{% endblock %}
+
+<head>
+    <title> My Pods </title>
+   
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 {% block content %}
-    <h1>My pods</h1>
-    
-    <div class="module">
-        {% for pod in object_list %}
-            <div class="pod-info">
-                <h3>{{ pod.title }}</h3>
-                <p>
-                    <a href="{% url "pod_edit" pod.id %}">Edit</a>
-                    <a href="{% url "pod_delete" pod.id %}">Delete</a>
-                    <a href="{% url "pod_module_update" pod.id %}">Edit modules</a>
-                    {% if pod.modules.count > 0 %}
-                        <a href="{% url "module_content_list" pod.modules.first.id %}">Manage contents</a>
-                    {% endif %}
-                </p>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Banner -->
+
+                    {% for pod in object_list %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ pod.title }}</h2>
+                            <p class="card-text">You can edit your Pod content here</p>
+                            <a class="btn btn-primary" href="{% url 'pod_edit' pod.id %}">Edit</a>
+                            <a class="btn btn-primary" href="{% url 'pod_delete' pod.id %}">Delete</a>
+                            <a class="btn btn-primary" href="{% url 'pod_module_update' pod.id %}">Edit modules</a>
+                            {% if pod.modules.count > 0 %}
+                                <a class="btn btn-primary" href="{% url 'module_content_list' pod.modules.first.id %}">Manage contents</a>
+                            {% endif %}
+                        </div> 
+                    </div> 
+                    {% empty %}
+                        <p>You haven't created any pods yet.</p>
+                    {% endfor %}                
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Information</div>
+                        <div class="card-body">This page is a CMS for users who wants to create new learning pods. Do you have something in mind? Dive in!</div>
+                        <a href="{% url 'pod_create' %}" class="btn btn-primary">Create new pod</a>
+                    </div>
+                </div>
             </div>
-        {% empty %}
-            <p>You haven't created any pods yet.</p>
-        {% endfor %}
-        <p>
-            <a href="{% url "pod_create" %}" class="button">Create new pod</a>
-        </p>
-    </div>
-{% endblock %}
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    {% endblock %}

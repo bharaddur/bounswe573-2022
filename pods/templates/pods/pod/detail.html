@@ -5,27 +5,53 @@
 {% endblock %}
 
 {% block content %}
-    <h1>
-        {{ object.title }}
-    </h1>
-    <div class="module">
-        <h2>Overview</h2>
-        <p>
-                
-            {{ object.modules.count }} modules.
-            Creator: {{ object.owner.get_full_name }}
-        </p>
-        {{ object.overview|linebreaks }}
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'suser_enroll_pod' %}" method="post">
-                {{ enroll_form }}
-                {% csrf_token %}
-                <input type="submit" value="Enroll now">
-            </form>
-        {% else %}
-            <a href="{% url 'suser_registration' %}" class="button">
-                Register to enroll
-            </a>
-        {% endif %}
+    
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="card-title">{{ object.title }}</h2>
     </div>
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-lg-6">
+        <!-- Blog post-->
+        <div class="card mb-4">
+            {%if object.file %}
+            <a href="#"><img class="card-img-top" src="{{ object.file.url }}" alt="..." /></a>
+            {% else %}
+            {% endif %}  
+            <div class="card-body">
+                <h2 class="card-title h4">{{ object.title }}</h2>
+                <h6 cşass="card-title">{{ object.modules.count }} modules. Creator: {{ object.owner }}</h4>
+                <p class="card-text" >{{pod.overview}}</p>
+                {% for tag in pod.tags.all %}
+                    <a class="btn btn-primary" style = "font-size: 10px;padding: 5px 10px; background-color: rgb(32, 113, 86);"href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+                {% endfor %}
+            </br></br>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'suser_enroll_pod' %}" method="POST">
+                        {{ enroll_form }}
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" value="See Content">
+                    </form>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'suser_registration' %}">Register to See Details →</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+<div class="col-lg-4">
+    <!-- Search widget-->
+    <div class="card mb-4">
+        <div class="card-header">Information</div>
+        <div class="card-body">
+            <p class="card-text"> Here you can enroll to a learning Pod and start learning! </p>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
 {% endblock %}

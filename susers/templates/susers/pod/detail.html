@@ -1,67 +1,95 @@
 {% extends "base.html" %}
 
-{% block title %}
-    {{ object.title }}
-{% endblock %}
+<head>
+    <title> Pod Content</title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 {% block content %}
-    <h1>
-        {{ module.title }}
-    </h1>
-    <div class="contents">
-        <h3>Pod Modules</h3>
-        <ul id="modules">
-            {% for m in object.modules.all %}
-                <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
-                    <a href="{% url 'suser_pod_detail_module' object.id m.id %}">                   
-                        <br>
-                        {{ m.title }}
-                    </a>
-                </li>
-            {% empty %}
-                <li>No modules yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="module">
-        {% for content in module.contents.all %}
-            {% if content.content_type_id == 6 %}
-                {% with item=content.item %}
-                    {{ item.render }}
-                    <p><i>{{ item.title }}</i></p>
-                {% endwith %}
-            {% else %}
-                {% with item=content.item %}
-                    <h3><b>{{ item.title }}</b></h3>
-                {{ item.render }}
-                {% endwith %}           
-            {% endif %}    
-        {% endfor %}
-    </div>
-  
-    <br/>
-    <form action="{% url 'like_pod' pod.pk %}" method = "POST">
-        {% csrf_token %}
-        {% if liked %}
-            <button type="submit", name="pod_id", value="{{ pod.id }}", class="taggit" style="background-color: rgb(156, 3, 3)">Unlike</button> 
-        {% else %}
-            <button type="submit", name="pod_id", value="{{ pod.id }}", class="taggit" style="background-color: rgb(82, 156, 3)">Like</button> 
-        {% endif %}
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Banner -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h1 class="card-title">Module: {{module.title}}</h1>
+                            <br/>
+                            <form action="{% url 'like_pod' pod.pk %}" method = "POST">
+                                {% csrf_token %}
+                                {% if liked %}
+                                    <button type="submit", name="pod_id", value="{{ pod.id }}", class="btn btn-primary" style="background-color: rgb(156, 3, 3)">Unlike</button> 
+                                {% else %}
+                                    <button type="submit", name="pod_id", value="{{ pod.id }}", class="btn btn-primary" style="background-color: rgb(82, 156, 3)">Like</button> 
+                                {% endif %}
+                        
+                                    - {{ total_likes }} Likes
+                            </form>
+                        </br>
+                            {% for content in module.contents.all %}
+                                {% if content.content_type_id == 6 %}
+                                    {% with item=content.item %}
+                                        {{ item.render }}
+                                        <p><i>{{ item.title }}</i></p>
+                                    {% endwith %}
+                                {% else %}
+                                    {% with item=content.item %}
+                                    <h4><b>{{ item.title }}</b></h4>
+                                {{ item.render }}
+                            {% endwith %}           
+                            {% endif %}    
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Module widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Pod Modules</div>
+                        <div class="card-body">
+                            {% for m in object.modules.all %}
+                                <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
+                                <a href="{% url 'suser_pod_detail_module' object.id m.id %}">                   
+                                <br>
+                                {{ m.title }}
+                                </a>
+                                </li>
+                             {% empty %}
+                                <li>No modules yet.</li>
+                             {% endfor %}
+                        </div>
+                    </div>
 
-            - {{ pod.total_likes }} Likes
-    </form> 
-    <br/>
-    <h2>Discussion</h2>
-    <br/>
-    <a href="{% url 'add_discussion' pod.pk %}">Ask a question</a>
-    {% if not object.discussions.all %}
-        No Discussion Yet...<a href="#">Add one</a>
-    {% else %}
-        {% for discussion in object.discussions.all %}
-            <h5><a href="#">{{ discussion.title }}</a> -{{ discussion.author}}</h5>
-        {% endfor %}   
-    {% endif %}
-
-
-
-{% endblock %}
+                    <!--  widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search by Tags</div>
+                        <div class="card-body">
+                            {% for tag in tags %}
+                                <a class="btn btn-primary" style = "margin:1px;font-size: 10px;padding: 5px 10px; background-color: rgb(32, 113, 86);"href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Discussion widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Discussions</div>
+                        <a class="btn btn-primary" style="background-color: rgb(187, 94, 7)" href="{% url 'add_discussion' pod.pk %}">Ask a question</a>
+                            {% if not object.discussions.all %}
+                            No Discussion Yet...
+                            {% else %}
+                                {% for discussion in object.discussions.all %}
+                                    <p><a class="btn btn-primary" style="margin-left:5px; margin-top:0px; margin-bottom:0; font-size:15px;padding: 0px 5px; background-color: rgb(32, 113, 86);" href="{% url 'discussion_detail' discussion.pk %}">{{ discussion.title }}</a> - <b>{{ discussion.author}}</b> - {{discussion.created}}</p>
+                                {% endfor %}   
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    {% endblock %}

@@ -15,12 +15,19 @@
             Add new content
         {% endif %}
     </h1>
-    <div class="module">
-        <h2>Pod info</h2>
-        <form action="" method="post" enctype="multipart/form-data">
-            {{ form.as_p }}
-            {% csrf_token %}
+    <div class="col-lg-8">
+        <!-- Banner -->
+        <div class="card mb-4">
+            <div class="module">
+                <h2>Pod info</h2>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                    {{ form.as_p }}
+                    {% csrf_token %}
             <p><input type="submit" value="Save content"></p>
         </form>
     </div>
+    </div>
+    </div>
+
+
 {% endblock %}
