@@ -64,7 +64,7 @@ class Discussion(models.Model):
 ####comment
 
 class Comment(models.Model):
-    discussion = models.ForeignKey(Pod,
+    discussion = models.ForeignKey(Discussion,
                                 related_name='comments',
                                 on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete= models.CASCADE, related_name= "discussion_comment")

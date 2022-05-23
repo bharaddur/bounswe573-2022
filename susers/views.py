@@ -33,10 +33,29 @@ class SuserRegistrationView(CreateView):
         
         login(self.request, user)
         # bunu kullan
-        permission = Permission.objects.filter(content_type__app_label='pods',content_type__model='module')
-        user.user_permissions.add(permission[1])
-        user.user_permissions.add(permission[2])
-        user.user_permissions.add(permission[3])
+        module = Permission.objects.filter(content_type__app_label='pods',content_type__model='module')
+        comment = Permission.objects.filter(content_type__app_label='pods',content_type__model='comment')
+        content = Permission.objects.filter(content_type__app_label='pods',content_type__model='content')
+        discussion = Permission.objects.filter(content_type__app_label='pods',content_type__model='discussion')
+        file = Permission.objects.filter(content_type__app_label='pods',content_type__model='file')
+        image = Permission.objects.filter(content_type__app_label='pods',content_type__model='image')
+        pod = Permission.objects.filter(content_type__app_label='pods',content_type__model='pod')
+        text = Permission.objects.filter(content_type__app_label='pods',content_type__model='text')
+        taggittag = Permission.objects.filter(content_type__app_label='taggit',content_type__model='tag')
+        taggittaggetitem = Permission.objects.filter(content_type__app_label='taggit',content_type__model='taggeditem')
+        
+        for i in range(4):
+            user.user_permissions.add(module[i],
+                                      comment[i],
+                                      content[i],
+                                      discussion[i],
+                                      file[i],
+                                      image[i],
+                                      pod[i],
+                                      text[i],
+                                      taggittag[i],
+                                      taggittaggetitem[i]      
+                                        )
         #
         return result
 
