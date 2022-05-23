@@ -32,10 +32,22 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-#docker
+#Initial
 #ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+#For Docker
+#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
+
+#For Deployment
+ALLOWED_HOSTS = ['0.0.0.0']
+
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(' '),
+    )
+)
 
 
 
@@ -148,8 +160,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+#basic docker
+#STATIC_URL = '/static/'
+#STATIC_ROOT = BASE_DIR / 'static'
+
+#deployment docker
+STATIC_URL = '/static/static/'
+STATIC_ROOT = '/vol/web/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -158,10 +175,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = reverse_lazy('suser_pod_list')
 
-MEDIA_URL = '/media/'
 
+#basic docker
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join( BASE_DIR, 'media/' )
 
+#deployment docker
 
-MEDIA_ROOT = os.path.join( BASE_DIR, 'media/' )
+MEDIA_URL = '/static/media/'
+MEDIA_ROOT = '/vol/web/static'
 
 TAGGIT_CASE_INSENSITIVE = True

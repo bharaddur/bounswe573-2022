@@ -38,3 +38,5 @@ $RECYCLE.BIN/
 .vscode/
 .history/
 *.code-workspace
+
+/data
