@@ -40,3 +40,7 @@ $RECYCLE.BIN/
 *.code-workspace
 
 /data
+
+#Production credentials for DB
+.env.prod
+.env.prod.db

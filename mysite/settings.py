@@ -22,41 +22,35 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#docker
-#SECRET_KEY = 'django-insecure-ip^#f-z#mq)t+)#_8tz-$=++^ax^d+o%z-26h_+r8x#j3&aj!v'
+# docker
+# SECRET_KEY = 'django-insecure-ip^#f-z#mq)t+)#_8tz-$=++^ax^d+o%z-26h_+r8x#j3&aj!v'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-##DEBUG = True
+# DEBUG = True
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-#Initial
-#ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+# Initial
+# ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
-    #'pods.apps.PodsConfig',
+    'pods.apps.PodsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   # 'susers.apps.SusersConfig',
+    'susers.apps.SusersConfig',
     'embed_video',
     'taggit',
-    'pods',
-    'susers',
-
-    
 ]
 
 MIDDLEWARE = [
@@ -94,7 +88,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #        'NAME': 'WebApp',
@@ -103,14 +97,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #        'HOST': 'localhost',
 #        'PORT': '5432',
 #    }
-#}
+# }
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
-        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "WebApp"),
-        "USER": os.environ.get("SQL_USER", "postgres"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "lahmacun"),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
         "HOST": os.environ.get("SQL_HOST", "localhost"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
@@ -152,11 +146,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-#basic docker
+# basic docker
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -166,8 +158,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = reverse_lazy('suser_pod_list')
 
 
-#basic docker
+# basic docker
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join( BASE_DIR, 'media/' )
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
