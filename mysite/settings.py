@@ -35,35 +35,27 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 #Initial
 #ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
-#For Docker
-#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-
-#For Deployment
-ALLOWED_HOSTS = ['0.0.0.0']
-
-ALLOWED_HOSTS.extend(
-    filter(
-        None,
-        os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(' '),
-    )
-)
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'pods.apps.PodsConfig',
+    #'pods.apps.PodsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'susers.apps.SusersConfig',
+   # 'susers.apps.SusersConfig',
     'embed_video',
     'taggit',
+    'pods',
+    'susers',
+
     
 ]
 
@@ -115,10 +107,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "WebApp"),
+        "USER": os.environ.get("SQL_USER", "postgres"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "lahmacun"),
         "HOST": os.environ.get("SQL_HOST", "localhost"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
@@ -161,12 +153,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 #basic docker
-#STATIC_URL = '/static/'
-#STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
-#deployment docker
-STATIC_URL = '/static/static/'
-STATIC_ROOT = '/vol/web/static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -177,12 +167,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('suser_pod_list')
 
 
 #basic docker
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join( BASE_DIR, 'media/' )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join( BASE_DIR, 'media/' )
 
-#deployment docker
 
-MEDIA_URL = '/static/media/'
-MEDIA_ROOT = '/vol/web/static'
-
-TAGGIT_CASE_INSENSITIVE = True

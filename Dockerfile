@@ -2,7 +2,7 @@
 FROM python:3.10.1-alpine
 
 # set work directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -18,11 +18,6 @@ RUN apk add -u zlib-dev jpeg-dev gcc musl-dev
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
-RUN mkdir -p /vol/web/static
-RUN mkdir -p /vol/web/media
-RUN chown -R app:app /vol
-RUN chmod -R 755 /vol
 
 
 # copy project
