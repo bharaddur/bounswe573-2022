@@ -14,8 +14,7 @@ db.sqlite3
 # Backup
 datadump.json
 
-# Database files
-migrations
+#database files
 files
 images
 

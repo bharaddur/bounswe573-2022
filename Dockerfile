@@ -13,7 +13,6 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
 # install dependencies
-RUN apk update && apk add tk
 RUN apk add -u zlib-dev jpeg-dev gcc musl-dev
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
