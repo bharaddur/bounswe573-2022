@@ -29,17 +29,9 @@
                             </form>
                         </br>
                             {% for content in module.contents.all %}
-                                {% if content.content_type_id == 6 %}
-                                    {% with item=content.item %}
-                                        {{ item.render }}
-                                        <p><i>{{ item.title }}</i></p>
-                                    {% endwith %}
-                                {% else %}
-                                    {% with item=content.item %}
-                                    <h4><b>{{ item.title }}</b></h4>
+                                {% with item=content.item %}    
                                 {{ item.render }}
-                            {% endwith %}           
-                            {% endif %}    
+                            {% endwith %}    
                             {% endfor %}
                         </div>
                     </div>
@@ -51,25 +43,14 @@
                         <div class="card-header">Pod Modules</div>
                         <div class="card-body">
                             {% for m in object.modules.all %}
-                                <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
-                                <a href="{% url 'suser_pod_detail_module' object.id m.id %}">                   
-                                <br>
+                                
+                                <li><a href="{% url 'suser_pod_detail_module' object.id m.id %}" class="btn btn-primary" style="background-color: rgb(110, 38, 151)">             
                                 {{ m.title }}
-                                </a>
-                                </li>
+                                </a></li>
+                          
                              {% empty %}
                                 <li>No modules yet.</li>
                              {% endfor %}
-                        </div>
-                    </div>
-
-                    <!--  widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search by Tags</div>
-                        <div class="card-body">
-                            {% for tag in tags %}
-                                <a class="btn btn-primary" style = "margin:1px;font-size: 10px;padding: 5px 10px; background-color: rgb(32, 113, 86);"href="{% url 'pods_by_tag' tag.slug %}">{{tag.name}}</a>
-                            {% endfor %}
                         </div>
                     </div>
                     <!-- Discussion widget-->
